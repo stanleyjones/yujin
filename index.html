@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <!-- UIkit CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.16.22/dist/css/uikit.min.css"
+    />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.22/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.22/dist/js/uikit-icons.min.js"></script>
+  </head>
+  <body>
+    <div class="uk-container">
+      <h1>Yujin</h1>
+      <h2>Request</h2>
+      <form id="request">
+        <p>
+          <label for="url">Server URL</label><br />
+          <input
+            class="uk-input"
+            name="url"
+            id="url"
+            value="https://jsonplaceholder.typicode.com/todos/1"
+            required
+          />
+        </p>
+        <p>
+          <label for="method">Method Name</label><br />
+          <input
+            class="uk-input"
+            name="method"
+            id="method"
+            value="status"
+            required
+          />
+        </p>
+        <p>
+          <label for="args">Arguments</label><br />
+          <textarea
+            class="uk-textarea"
+            name="args"
+            id="args"
+            placeholder="Leave blank for none."
+          ></textarea>
+        </p>
+        <p>
+          <label for="seed">Identity Seed</label><br />
+          <textarea
+            class="uk-textarea"
+            name="seed"
+            id="sed"
+            placeholder="Leave blank for anonymous."
+          ></textarea>
+        </p>
+        <p>
+          <button class="uk-button" id="send" type="submit">Send</button>
+        </p>
+      </form>
+      <hr />
+      <h2>Response</h2>
+      <pre id="response"></pre>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
