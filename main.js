@@ -17,7 +17,7 @@ window.addEventListener("submit", async (event) => {
       setInner("response", JSON.stringify(json, null, 2));
     }
   } catch (e) {
-    console.log("Fetch failed", e);
+    console.log("Fetch failed:", e);
   }
 });
 

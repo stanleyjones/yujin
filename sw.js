@@ -1,4 +1,4 @@
-import init, { handle_req } from "./pkg/yujin.js";
+import init, { handle_request } from "./pkg/yujin.js";
 
 self.addEventListener("install", () => {
   self.skipWaiting();
@@ -14,7 +14,7 @@ self.addEventListener("fetch", (event) => {
       (async () => {
         await init();
         const reqBody = await event.request.json();
-        const resBody = await handle_req(reqBody);
+        const resBody = await handle_request(reqBody);
         return new Response(JSON.stringify(resBody), {
           headers: { "Content-Type": "application/json" },
           statusText: "Intercepted",

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
@@ -21,18 +22,19 @@
             class="uk-input"
             name="url"
             id="url"
-            value="https://jsonplaceholder.typicode.com/todos/1"
+            value="https://demo.liftedinit.tech/api"
             required
           />
         </p>
         <p>
-          <label for="method">Method Name</label><br />
+          <label for="method">Method</label><br />
           <input
             class="uk-input"
             name="method"
             id="method"
-            value="status"
+            value="endpoints"
             required
+            readonly
           />
         </p>
         <p>
@@ -42,15 +44,7 @@
             name="args"
             id="args"
             placeholder="Leave blank for none."
-          ></textarea>
-        </p>
-        <p>
-          <label for="seed">Identity Seed</label><br />
-          <textarea
-            class="uk-textarea"
-            name="seed"
-            id="sed"
-            placeholder="Leave blank for anonymous."
+            readonly
           ></textarea>
         </p>
         <p>
