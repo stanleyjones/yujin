@@ -1,4 +1,4 @@
-import init, { handle_request } from "./pkg/yujin.js";
+import init, { refetch } from "./pkg/yujin.js";
 
 self.addEventListener("install", () => {
   self.skipWaiting();
@@ -13,12 +13,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       (async () => {
         await init();
-        const reqBody = await event.request.json();
-        const resBody = await handle_request(reqBody);
-        return new Response(JSON.stringify(resBody), {
-          headers: { "Content-Type": "application/json" },
-          statusText: "Intercepted",
-        });
+        return refetch(event.request);
       })()
     );
   }

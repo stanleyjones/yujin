@@ -24,6 +24,7 @@ window.addEventListener("submit", async (event) => {
 function postManyRequest(url, body) {
   return fetch(url, {
     method: "POST",
+    mode: "cors",
     headers: {
       "Content-Type": "application/json",
       "X-Many-Request": true,

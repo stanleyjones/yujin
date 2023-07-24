@@ -2,6 +2,9 @@
 name = "yujin"
 version = "0.1.0"
 edition = "2021"
+description = "Rust-powered Wasm in a Service Worker"
+repository = "https://github.com/stanleyjones/yujin"
+license = "None"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
