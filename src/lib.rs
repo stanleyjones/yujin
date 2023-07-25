@@ -6,19 +6,33 @@ use wasm_bindgen_futures::JsFuture;
 use web_sys::{Request, Response, ServiceWorkerGlobalScope};
 
 #[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+}
+
+#[wasm_bindgen]
 pub async fn refetch(req_value: JsValue) -> Result<JsValue, JsValue> {
     set_panic_hook();
     let scope = get_scope().unwrap();
 
     let req: Request = req_value.dyn_into().unwrap();
-    let many_req = encode_request(req)?;
+    let req = encode_request(req)?;
 
-    let res_value = JsFuture::from(scope.fetch_with_request(&many_req)).await?;
-
-    let many_res: Response = res_value.dyn_into().unwrap();
-    let res = decode_response(many_res);
-
-    Ok(JsValue::from(res))
+    log("[WASM] Fetching");
+    let res_value = JsFuture::from(scope.fetch_with_request(&req)).await;
+    match res_value {
+        Ok(res_value) => {
+            log("[WASM] Fetch success");
+            let res: Response = res_value.dyn_into().unwrap();
+            let res = decode_response(res)?;
+            Ok(JsValue::from(res))
+        }
+        Err(err) => {
+            log("[WASM] Fetch error");
+            Err(err)
+        }
+    }
 }
 
 pub fn set_panic_hook() {

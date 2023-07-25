@@ -6,34 +6,26 @@ if ("serviceWorker" in navigator) {
 
 window.addEventListener("submit", async (event) => {
   event.preventDefault();
+
   const data = new FormData(event.target);
+  const url = data.get("url");
+  data.delete("url");
+  const body = JSON.stringify(Object.fromEntries(data.entries()));
+
   try {
-    const res = await postManyRequest(
-      data.get("url"),
-      JSON.stringify(Object.fromEntries(data.entries()))
-    );
-    if (res.ok) {
-      const json = await res.json();
-      setInner("response", JSON.stringify(json, null, 2));
-    }
-  } catch (e) {
-    console.log("Fetch failed:", e);
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Many-Request": true,
+      },
+      mode: "cors",
+      body,
+    });
+    const json = await res.json();
+    const el = document.getElementById("response");
+    el.innerHTML = JSON.stringify(json, null, 2);
+  } catch (error) {
+    console.log("[MAIN] Fetch error:", error);
   }
 });
-
-function postManyRequest(url, body) {
-  return fetch(url, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Many-Request": true,
-    },
-    body,
-  });
-}
-
-function setInner(id, html) {
-  const el = document.getElementById(id);
-  el.innerHTML = html;
-}

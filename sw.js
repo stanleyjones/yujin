@@ -12,8 +12,14 @@ self.addEventListener("fetch", (event) => {
   if (event.request.headers.has("X-Many-Request")) {
     event.respondWith(
       (async () => {
-        await init();
-        return refetch(event.request);
+        try {
+          await init();
+          const res = await refetch(event.request);
+          return res;
+        } catch (error) {
+          console.log("[SW] Fetch error:", error);
+          return;
+        }
       })()
     );
   }
